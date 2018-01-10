@@ -1,0 +1,30 @@
+
+import matplotlib.pyplot as plt
+import random
+import math
+
+def frange(start, end, incr):
+    while start < end:
+        yield start
+        start += float(incr)
+for i in frange(.1, .3, .05):
+    file = open("DDnumbers" + str(i)+".txt")
+    plot = plt.figure()
+    x = list()
+    y = list()
+    x1 = list()
+    y1 = list()
+    for line in file:
+        fields = line.split("|")
+        x.append(int(fields[3]))
+        y.append(int(fields[2]))
+    file2 = open("Starbucksnumber" + str(i) + ".txt")
+    for line in file2:
+        fields = line.split("|")
+        x1.append(int(fields[3]))
+        y1.append(int(fields[2]))
+    plt.scatter(x,y, c = 'g', alpha = .7)
+    plt.scatter(x1, y1, c='m', alpha = .7)
+    plt.xlabel("Subway Station Rankings (1 = highest ridership, 400 = lowest ridership)")
+    plt.ylabel("Quantity of DD and Starbucks Locations Within Range of " + str(i) +" miles")
+    plot.savefig("Plot" + str(i) + ".pdf")
